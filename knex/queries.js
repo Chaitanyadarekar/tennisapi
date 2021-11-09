@@ -1,5 +1,9 @@
 const knex=require("./knex");
 let required=["tourney_name",'round','surface',"tourney_date","winner_name","loser_name","score","nos","comeback","w_dr","l_dr", 'w_1st_In_prc',"w_1stprc","w_2ndprc","w1st_retprc","w2nd_retprc",'w_bpFaced', 'w_bpSavedprc','w_bpSaved', 'l_1st_In_prc',"l_1stprc","l_2ndprc","l1st_retprc","l2nd_retprc", 'l_bpFaced','l_bpSavedprc','l_bpSaved','w_ace','l_ace','w_df','l_df'];
+let empty_data={"tourney_name":[],"round":[],"surface":[],"tourney_date":[],"winner_name":[],"loser_name":[],"score":[],"nos":[],"comeback":[],"w_dr":[],"l_dr":[],"w_1st_In_prc":[],"w_1stprc":[],"w_2ndprc":[],"w1st_retprc":[],"w2nd_retprc":[],"w_bpFaced":[],"w_bpSavedprc":[],"w_bpSaved":[],"l_1st_In_prc":[],"l_1stprc":[],"l_2ndprc":[],"l1st_retprc":[],
+"l2nd_retprc":[],"l_bpFaced":[],"l_bpSavedprc":[],"l_bpSaved":[],
+"w_ace":[],"l_ace":[],"w_df":[],"l_df":[]}
+
 
 
 function GetData(requery){
@@ -16,7 +20,8 @@ function GetData(requery){
             return res;
         }
         else if(requery.result=="Loss"){
-            const res= knex("T_ATP_2021_65").select(...required).where({"loser_name":requery.player_name,
+            const res= knex("T_ATP_2021_65").select(...required)
+            .where({"loser_name":requery.player_name,
             "surface":requery.surface});
             return res;
             }
