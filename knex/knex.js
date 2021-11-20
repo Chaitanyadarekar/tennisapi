@@ -3,7 +3,7 @@ const knex=require("knex");
 const connectedKnex=knex({
     client:"sqlite3",
     connection:{
-        filename:"tdb2.sqlite3"
+        filename:"tdb3.sqlite3"
     },
     useNullAsDefault: true
 });
