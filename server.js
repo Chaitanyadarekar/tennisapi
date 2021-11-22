@@ -3,6 +3,7 @@ const app=express();
 const bodyParser=require('body-parser');
 const qry=require("./knex/queries");
 const qry2=require("./knex/queries2");
+const qry3=require("./knex/queries3");
 const cors=require('cors');
 
 const a_obj_to_df=require("./aobj_to_df")
@@ -28,6 +29,12 @@ app.get("/fetch",async (req,res)=>{
     const result= await qry2.GetData2(req.query);
     let res_df=a_obj_to_df(result);
     res_df=(Object.keys(res_df).length===0)?empty_obj:res_df;
+    res.status(200).json(res_df);
+ } );
+
+ app.get("/fetch3",async (req,res)=>{
+    const result= await qry3.GetData3(req.query);
+    let res_df=(!result[0])?{}:result[0];
     res.status(200).json(res_df);
  } );
 
