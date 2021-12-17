@@ -3,7 +3,7 @@ const {MongoClient}=require("mongodb")
 
 const url=process.env.MONGODB_STRING
 let client ;
-const dbName="tctennischartsdb"
+const dbName=process.env.MONGODBDB
 
 
 const initializeDbConnection=async()=>{
