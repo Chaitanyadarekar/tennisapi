@@ -64,7 +64,7 @@ app.get("/fetch",async (req,res)=>{
 
    const {authorization}=req.headers;
    if(!authorization){
-      return res.status(401).json({message:'No authoization header sent'})
+      return res.status(401).json({message:'No authorization header sent'})
    }
    const token=authorization.split(' ')[1];
    jwt.verify(
@@ -91,7 +91,7 @@ app.get("/fetch",async (req,res)=>{
 
  app.get("/fetch3",async (req,res)=>{
 
-   
+
 
     const result= await qry3.GetData3(req.query);
     let res_df=(!result[0])?{}:result[0];

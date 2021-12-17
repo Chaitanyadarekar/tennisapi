@@ -11,8 +11,7 @@ const signUpRoute = {
         const { email, password } = req.body;
         // console.log(req.body);
         // console.log(process.env.JWT_SECRET)
-        // const email="abc@gmail.com";
-        // const password="abc@gmail.com";
+        
         const db = getDbConnection();
         const user = await db.collection('users').findOne({ email });
         // console.log("user ", user)
