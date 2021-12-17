@@ -3,7 +3,8 @@ const signUpRoute=require('./signUpRoute')
 const logInRoute=require('./logInRoute')
 
 const routes = [
-    signUpRoute,logInRoute
+    signUpRoute,
+    logInRoute
 ];
 
 module.exports=routes
