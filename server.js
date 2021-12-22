@@ -41,7 +41,9 @@ app.get("/fetch",async (req,res)=>{
       async (err,decoded)=>{
       if(err) return res.status(401).json({message:"Unable to verify token"})
 
-      const {id}=decoded;
+      const { id,isVerified }=decoded;
+      if (!isVerified) return res.status(403).json({ message: 'You need to verify your email before you can update your data'})
+
       const db=getDbConnection();
       const user=await db.collection('users').findOne({_id:ObjectID(id)},
       {projection:{email:1}});
@@ -91,7 +93,26 @@ app.get("/fetch",async (req,res)=>{
 
  app.get("/fetch3",async (req,res)=>{
 
+   const {authorization}=req.headers;
+   if(!authorization){
+      return res.status(401).json({message:'No authorization header sent'})
+   }
+   const token=authorization.split(' ')[1];
+   jwt.verify(
+      token,
 
+      process.env.JWT_SECRET,
+
+      async (err,decoded)=>{
+      if(err) return res.status(401).json({message:"Unable to verify token"})
+
+      const {id}=decoded;
+      const db=getDbConnection();
+      const user=await db.collection('users').findOne({_id:ObjectID(id)},
+      {projection:{email:1}});
+      console.log(user)
+      if(!user) return res.status(401).json({message:"Unable to verify token"}) 
+   })
 
     const result= await qry3.GetData3(req.query);
     let res_df=(!result[0])?{}:result[0];

@@ -1,6 +1,8 @@
 const bcrypt =require ('bcrypt');
 const jwt =require ('jsonwebtoken');
-const getDbConnection  =require ('../db').getDbConnection;
+const getDbConnection =require('../db').getDbConnection;
+const   uuid =require('uuid').v4;
+const  sendEmail  =require('../util/sendEmail');
 
 
 const signUpRoute = {
@@ -23,14 +25,31 @@ const signUpRoute = {
         
         const passwordHash = await bcrypt.hash(password, 10);
         // console.log(passwordHash)
+        const verificationString = uuid();
 
         const result = await db.collection('users').insertOne({
             email,
             passwordHash,
             isVerified: false,
+            verificationString,
         });
 
         const { insertedId } = result;
+
+        try {
+            await sendEmail({
+                to: email,
+                from: 'tctennischarts@gmail.com',
+                subject: 'Please verify your email',
+                text: `
+                    Thanks for signing up! To verify your email, click here:
+                    http://localhost:3000/verify-email/${verificationString}
+                `,
+            });
+        } catch (e) {
+            console.log(e);
+            res.sendStatus(500);
+        }
 
         jwt.sign(
         {
