@@ -7,6 +7,7 @@ const qry3=require("./knex/queries3");
 const cors=require('cors');
 require('dotenv').config();
 const  routes  =require ('./routes');
+const port=process.env.PORT||3006;
 const initializeDbConnection  =require('./db').initializeDbConnection;
 const {ObjectID}=require('mongodb');
 const  getDbConnection  =require ('./db').getDbConnection;
@@ -123,7 +124,7 @@ app.get("/fetch",async (req,res)=>{
 initializeDbConnection()
 .then(() => {
 
-   app.listen(3006,()=>console.log("The server is running on port 3006"));
+   app.listen(port,()=>console.log(`The server is running on port ${port}`));
    //   app.listen(PORT, () => {
    //       console.log(`Server is listening on port ${PORT}`);
    //   });
