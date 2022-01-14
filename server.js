@@ -28,7 +28,7 @@ routes.forEach(route => {
 
 app.get("/fetch",async (req,res)=>{
    // const {headers}=req
-   // console.log(headers);
+   console.log(req);
    const {authorization}=req.headers;
    if(!authorization){
       return res.status(401).json({message:'No authoization header sent'})
