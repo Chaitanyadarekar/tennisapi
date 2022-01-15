@@ -22,7 +22,7 @@ const  sendEmail  =require('../util/sendEmail');
                     subject: 'Password Reset',
                     text: `
                         To reset your password, click this link:
-                        http://localhost:3000/reset-password/${passwordResetCode}
+                        ${process.env.FRONTEND_LINK}/reset-password/${passwordResetCode}
                     `
                 });
             } catch (e) {
